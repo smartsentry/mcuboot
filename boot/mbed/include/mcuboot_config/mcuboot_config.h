@@ -81,9 +81,11 @@
 /*
  * No watchdog integration for now
  */
-#define MCUBOOT_WATCHDOG_FEED()                 \
-    do {                                        \
-    } while (0)
+#include <bootloader_wdt.h>
+  #define MCUBOOT_WATCHDOG_FEED() \
+      do { \
+          bootloader_wdt_feed(); \
+      } while (0)
 
 /*
  * No direct idle call implemented

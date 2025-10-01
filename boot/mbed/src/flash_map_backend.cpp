@@ -249,3 +249,32 @@ int flash_area_id_to_multi_image_slot(int image_index, int area_id)
     assert(image_index == 0);
     return area_id;
 }
+
+/****************************************************************************
+ * Name: flash_area_get_sector
+ *
+ * Description:
+ *   Retrieve the flash sector a given offset belongs to.
+ *
+ * Input Parameters:
+ *   fap - flash area structure
+ *   off - address offset.
+ *   sector - flash sector
+ *
+ * Returned Value:
+ *   Returns 0 on success, or an error code on failure.
+ *
+ ****************************************************************************/
+
+int flash_area_get_sector(const struct flash_area *fap, uint32_t off,
+                          struct flash_sector *fs)
+{
+    mbed::BlockDevice* bd = flash_map_bd[fap->fa_id];
+
+    off_t offset = fap->fa_off + off;
+
+    fs->fs_off = (offset / bd->get_erase_size(off)) * bd->get_erase_size(off);
+    fs->fs_size = bd->get_erase_size(off);
+
+  return 0;
+}

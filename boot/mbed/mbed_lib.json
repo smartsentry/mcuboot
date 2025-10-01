@@ -109,6 +109,12 @@
             "accepted_values": [true, null],
             "value": null
         },
+        "boot-swap-offset": {
+            "help": "Boot swap using offset (NOT TESTED)",
+            "macro_name": "MCUBOOT_SWAP_USING_OFFSET",
+            "accepted_values": [true, null],
+            "value": null
+        },
         "updateable-image-number": {
             "help": "Updateable image number (NOT TESTED)",
             "macro_name": "MCUBOOT_IMAGE_NUMBER"

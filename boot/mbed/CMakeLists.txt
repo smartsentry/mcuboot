@@ -25,6 +25,7 @@ target_sources(${LIB_TARGET}
     app_enc_keys.c
     src/flash_map_backend.cpp
     src/secondary_bd.cpp
+    bootloader_wdt.cpp
 )
 
 target_link_libraries(${LIB_TARGET}
