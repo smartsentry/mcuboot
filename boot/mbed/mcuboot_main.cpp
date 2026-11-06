@@ -24,6 +24,8 @@
 #include "bootutil/image.h"
 #include "hal/serial_api.h"
 #include "platform/mbed_application.h"
+#include "platform/mbed_wait_api.h"
+#include <stdio.h>
 
 #if (MCUBOOT_CRYPTO_BACKEND == MBEDTLS)
 #include "mbedtls/platform.h"
@@ -85,6 +87,11 @@ int main()
     // before mbed_start_application() destroys the stack and jumps
     // to the application
     tr_info("Booting firmware image at 0x%" PRIx32 "\n", address);
+
+    // The console only waits for each byte to reach the UART, not to be sent: let the last
+    // ones go out (~20 chars at 115200) before the application re-initialises the UART
+    fflush(stdout);
+    wait_us(2000);
 
     // Run the application in the primary slot
     // Add header size offset to calculate the actual start address of application
